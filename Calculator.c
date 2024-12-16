@@ -29,8 +29,6 @@ int cal(char* expression){
     int num[MAX],top1=-1;   
     char ops[MAX], top2 = -1;
     for(i=0;i<strlen(expression);i++){
-        if(expression[i]==' ') 
-              continue;
         if(isdigit(expression[i])){
             int value=0;
             while(i<strlen(expression)&&isdigit(expression[i])){
