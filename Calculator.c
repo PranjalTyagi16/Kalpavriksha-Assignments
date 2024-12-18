@@ -3,28 +3,38 @@
 #include <string.h>
 #include <ctype.h>
 #define MAX 100
-int solve(int a, int b, char op){
+
+int evaluate(int,int,char);
+int precedence(char);
+int calculate(char*);
+
+int evaluate(int a, int b, char op){
+    int var;
     switch (op){
-        case '+': return a+b;
-        case '-': return a-b;
-        case '*': return a*b;
+        case '+': var=a+b;
+        break;
+        case '-': var=a-b;
+        break;
+        case '*': var=a*b;
+        break;
         case '/': 
             if(b==0){
                 printf("Error: Division by zero.\n");
                 exit(0);
             }
-            return a/b;
+            var=a/b;
+            break;
     }
-    return 0;
+    return var;
 }
-int prec(char op){
+int precedence(char op){
     if (op =='+'||op=='-')
          return 1;
     if (op=='*'||op=='/')
          return 2;
     return 0;
 }
-int cal(char* expression){
+int calculate(char* expression){
     int i;
     int num[MAX],top1=-1;   
     char ops[MAX], top2 = -1;
@@ -40,11 +50,11 @@ int cal(char* expression){
         }
         else if(expression[i]=='+'||expression[i]=='-'||
                  expression[i]=='*'||expression[i]=='/'){
-            while(top2!=-1&&prec(ops[top2])>=prec(expression[i])){
+            while(top2!=-1&&precedence(ops[top2])>=precedence(expression[i])){
                 int val2=num[top1--];
                 int val1=num[top1--];
                 char op=ops[top2--];
-               num[++top1]=solve(val1, val2, op);
+               num[++top1]=evaluate(val1, val2, op);
             }            
             ops[++top2]=expression[i];
         }else{
@@ -56,7 +66,7 @@ int cal(char* expression){
         int val2=num[top1--];
         int val1=num[top1--];
         char op=ops[top2--];
-        num[++top1]=solve(val1, val2, op);
+        num[++top1]=evaluate(val1, val2, op);
     }
     return num[top1];
 }
@@ -64,7 +74,7 @@ int main(){
     char expression[MAX];
     printf("Enter the mathematical expression: ");
     scanf("%[^\n]",expression); 
-    int result =cal(expression);
+    int result =calculate(expression);
     printf("Answer for the expression: %d\n", result);
     return 0;
 }
