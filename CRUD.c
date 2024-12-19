@@ -15,7 +15,7 @@ void add(){
     User user;
     printf("Enter user ID: ");
     scanf("%d", &user.id);
-    if(userExists(user.id)){
+    if(solve(user.id)){
         printf("User with ID %d already exists.\n", user.id);
         fclose(file);
         return;
