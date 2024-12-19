@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+
 typedef struct {
     int id;
     char name[50];
     int age;
 } User;
+
 void add(){
     FILE *file=fopen("users.txt", "a");
     if(!file){
@@ -29,6 +31,7 @@ void add(){
     printf("User added successfully.\n");
     fclose(file);
 }
+
 void display(){
     FILE *file=fopen("users.txt", "r");
     if (!file) {
@@ -44,6 +47,7 @@ void display(){
     }
     fclose(file);
 }
+
 void update(){
     FILE *file=fopen("users.txt", "r");
     if(!file){
@@ -86,6 +90,7 @@ void update(){
     remove("users.txt");
     rename("temp.txt", "users.txt");
 }
+
 void delete(){
     FILE *file=fopen("users.txt", "r");
     if(!file){
@@ -125,6 +130,7 @@ void delete(){
     remove("users.txt");
     rename("temp.txt", "users.txt");
 }
+
 int userexists(int id){
     FILE *file=fopen("users.txt", "r");
     if(!file){
@@ -140,8 +146,9 @@ int userexists(int id){
     fclose(file);
     return 0;
 }
+
 int main(){
-    int ch;
+    int choice;
     do{
         printf("\nMenu for CRUD Operations:\n");
         printf("1. Add User\n");
@@ -150,8 +157,8 @@ int main(){
         printf("4. Delete User\n");
         printf("5. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &ch);
-        switch(ch){
+        scanf("%d", &choice);
+        switch(choice){
             case 1:add();
                   break;
             case 2:display();
@@ -164,6 +171,6 @@ int main(){
                    break;
             default:printf("Invalid choice. Try again.\n");
         }
-    }while(ch!=5);
+    }while(choice!=5);
     return 0;
 }
