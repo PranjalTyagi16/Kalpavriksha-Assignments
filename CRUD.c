@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 typedef struct {
     int id;
     char name[50];
@@ -15,13 +16,13 @@ void add(){
     User user;
     printf("Enter user ID: ");
     scanf("%d", &user.id);
-    if(solve(user.id)){
+    if(userexists(user.id)){
         printf("User with ID %d already exists.\n", user.id);
         fclose(file);
         return;
     }
     printf("Enter name: ");
-    scanf(" %[^\n]", user.name);
+    scanf(" %[^\n]s", user.name);
     printf("Enter age: ");
     scanf("%d", &user.age);
     fprintf(file, "%d %s %d\n", user.id, user.name, user.age);
@@ -38,7 +39,7 @@ void display(){
     printf("\nUser Records:\n");
     printf("ID\tName\t\tAge\n");
     printf("---------------------------------\n");
-    while (fscanf(file, "%d %49s %d", &user.id, user.name, &user.age) != EOF) {
+    while (fscanf(file, "%d %[^\n]s %d", &user.id, user.name, &user.age) != EOF) {
         printf("%d\t%s\t\t%d\n", user.id, user.name, user.age);
     }
     fclose(file);
@@ -52,7 +53,7 @@ void update(){
     int id;
     printf("Enter user ID to update: ");
     scanf("%d", &id);
-    if(!solve(id)){
+    if(!userexists(id)){
         printf("User with ID %d does not exist.\n", id);
         fclose(file);
         return;
@@ -65,11 +66,11 @@ void update(){
     }
     User user;
     int found=0;
-    while(fscanf(file, "%d %49s %d", &user.id, user.name, &user.age)!=EOF){
+    while(fscanf(file, "%d %[^\n]s %d", &user.id, user.name, &user.age)!=EOF){
         if(user.id==id){
             found=1;
             printf("Enter new name: ");
-            scanf(" %[^\n]", user.name);
+            scanf(" %[^\n]s", user.name);
             printf("Enter new age: ");
             scanf("%d", &user.age);
         }
@@ -94,7 +95,7 @@ void delete(){
     int id;
     printf("Enter user ID to delete: ");
     scanf("%d", &id);
-    if(!solve(id)){
+    if(!userexists(id)){
         printf("User with ID %d does not exist.\n", id);
         fclose(file);
         return;
@@ -107,7 +108,7 @@ void delete(){
     }
     User user;
     int found=0;
-    while(fscanf(file, "%d %49s %d", &user.id, user.name, &user.age)!=EOF){
+    while(fscanf(file, "%d %[^\n]s %d", &user.id, user.name, &user.age)!=EOF){
         if(user.id==id){
             found=1;
             continue; // Skip the user to delete
@@ -124,13 +125,13 @@ void delete(){
     remove("users.txt");
     rename("temp.txt", "users.txt");
 }
-int solve(int id){
+int userexists(int id){
     FILE *file=fopen("users.txt", "r");
     if(!file){
         return 0;
     }
     User user;
-    while(fscanf(file, "%d %49s %d", &user.id, user.name, &user.age)!=EOF){
+    while(fscanf(file, "%d %[^\n]s %d", &user.id, user.name, &user.age)!=EOF){
         if(user.id==id){
             fclose(file);
             return 1;
