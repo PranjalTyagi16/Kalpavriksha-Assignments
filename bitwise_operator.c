@@ -6,7 +6,7 @@ struct tuple{
     int xor;
 };
 
-struct tuple array[1001];
+struct tuple ans;
 void calculate_the_maximum(int n, int k) {
   for(int i=1;i<n;i++)
   {
@@ -16,23 +16,23 @@ void calculate_the_maximum(int n, int k) {
           cur.and=i & j;
           cur.or=i | j;
           cur.xor= i ^ j;
-          if(cur.and>array[0].and&&cur.and<k)
+          if(cur.and>ans.and&&cur.and<k)
           {
-             array[0].and=cur.and;
+             ans.and=cur.and;
           }
-          if(cur.or>array[0].or&&cur.or<k)
+          if(cur.or>ans.or&&cur.or<k)
           {
-              array[0].or=cur.or;
+              ans.or=cur.or;
           }
-          if(cur.xor>array[0].xor&&cur.xor<k)
+          if(cur.xor>ans.xor&&cur.xor<k)
           {
-              array[0].xor=cur.xor;
+              ans.xor=cur.xor;
           }
       }
   }
-    printf("%d\n",array[0].and);
-    printf("%d\n",array[0].or);
-    printf("%d\n",array[0].xor);
+    printf("%d\n",ans.and);
+    printf("%d\n",ans.or);
+    printf("%d\n",ans.xor);
 }
 
 int main() {
