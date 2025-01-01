@@ -17,11 +17,11 @@ int main() {
     return 0;
 }
 
-void reverse(char* begin, char* end) {
+void reverse(char* start, char* end) {
     char temp;
-    while (begin < end) {
-        temp = *begin;
-        *begin++ = *end;
+    while (start<end) {
+        temp = *start;
+        *start++ = *end;
         *end-- = temp;
     }
 }
@@ -47,11 +47,12 @@ char* reversewords(char* s) {
 
     reverse(s, temp - 1);
 
-    char* ans = s;
-    temp = s;
+    char* ans=s;
+    temp=s;
     while (*temp) {
-        if (*temp != ' ' || (*(temp + 1) != ' '&&*(temp + 1) != '\0')) {
-            *ans++ = *temp;
+        if (*temp != ' ' || *(temp + 1) != ' ') {
+            *ans = *temp;
+            ans++;
         }
         temp++;
     }
