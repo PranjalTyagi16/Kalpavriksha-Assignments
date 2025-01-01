@@ -1,7 +1,6 @@
 #include <stdio.h>
 long solve(long b, long n, long m) {
-    long result=1; 
-    b=b%m;          
+    long result=1;          
     while (n>0) {
         if (n%2==1) {
             result=(result*b)%m;
@@ -9,8 +8,7 @@ long solve(long b, long n, long m) {
         n=n/2;
         b=(b*b)%m;
     }
-
-    return result;
+   return result;
 }
 
 int main() {
@@ -23,11 +21,11 @@ int main() {
 
     printf("Enter the modulus M: ");
     scanf("%ld", &m);
-    if (m <= 1) {
+    if (m<=1) {
         printf("Error:M must be greater than 1.\n");
         return 1;
     }
-    if (n < 0) {
+    if (n<0) {
         printf("Error:N must be a non-negative integer.\n");
         return 1;
     }
