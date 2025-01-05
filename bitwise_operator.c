@@ -7,7 +7,7 @@ struct tuple{
 };
 
 struct tuple ans;
-void calculate_the_maximum(int n, int k) {
+struct tuple calculate_the_maximum(int n, int k) {
   for(int i=1;i<n;i++)
   {
       for(int j=i+1;j<=n;j++)
@@ -30,16 +30,16 @@ void calculate_the_maximum(int n, int k) {
           }
       }
   }
-    printf("%d\n",ans.and);
-    printf("%d\n",ans.or);
-    printf("%d\n",ans.xor);
+   return ans;
 }
 
 int main() {
     int n, k;
   
     scanf("%d %d", &n, &k);
-    calculate_the_maximum(n, k);
- 
+   struct tuple ans=calculate_the_maximum(n, k);
+    printf("%d\n",ans.and);
+    printf("%d\n",ans.or);
+    printf("%d\n",ans.xor);
     return 0;
 }
