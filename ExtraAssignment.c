@@ -4,14 +4,14 @@
 
 int isVowel(char c) {
     c=tolower(c);
-    return (c =='a'||c=='e'||c=='i'||c=='o'||c=='u');
+    return (c=='a'||c=='e'||c=='i'||c=='o'||c=='u');
 }
 
 int main() {
     int rows, cols;
-    char names[10][50];
+    char names[10][101];
     int count = 0;
-    char longestname[50] = "";
+    char longestname[101] = "";
     printf("Enter number of rows: ");
     scanf("%d", &rows);
     printf("Enter number of columns: ");
